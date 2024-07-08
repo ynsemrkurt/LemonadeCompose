@@ -9,7 +9,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -54,7 +56,15 @@ fun LemonadePreview() {
 fun LemonadeApp(modifier: Modifier = Modifier) {
     val currentStep = remember { mutableIntStateOf(1) }
     val (image, text, contentDescription) = fetchImageAndText(currentStep.value)
-
+    Text(
+        text = stringResource(id = R.string.app_name),
+        style = MaterialTheme.typography.headlineSmall,
+        modifier = Modifier
+            .background(Color(0xFFF8E34C))
+            .statusBarsPadding()
+            .fillMaxWidth()
+            .height(60.dp)
+            .wrapContentSize(Alignment.Center))
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -64,7 +74,8 @@ fun LemonadeApp(modifier: Modifier = Modifier) {
             if (currentStep.value == 5) {
                 currentStep.value = 1
             }
-        }) {
+        },
+            shape = MaterialTheme.shapes.extraLarge) {
             Image(
                 painter = painterResource(id = image),
                 contentDescription = stringResource(contentDescription),
@@ -73,7 +84,10 @@ fun LemonadeApp(modifier: Modifier = Modifier) {
             )
         }
         Spacer(modifier = Modifier.height(24.dp))
-        Text(text = stringResource(text))
+        Text(
+            text = stringResource(text),
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 
